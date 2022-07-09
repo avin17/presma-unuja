@@ -25,20 +25,22 @@ class PresmaRequest extends FormRequest
     {
         return [
             'nama_kegiatan' => 'required',
-            'tgl_kegiatan' => 'required',
+            'tgl_kegiatan' => 'required|date',
             'prestasi' => 'required',
             'tingkat' => 'required',
             'bidang' => 'required',
             'pembimbing' => 'required',
             'penyelenggara' => 'required',
             'tempat' => 'required',
-            'jumlah_peserta' => 'required',
-            'jumlah_perguruan_tinggi' => 'required',
-            'jumlah_negara' => 'required',
+            'jumlah_peserta' => 'required|numeric|min:1',
+            'jumlah_perguruan_tinggi' => 'required|numeric|min:1',
+            'jumlah_negara' => 'required|numeric|min:1',
+            'akademik' => 'required',
             'deskripsi' => 'required',
-            'link' => 'required',
-            'bukti_file' => 'required',
-            'kelompok' => 'required'
+            'link' => 'required|url',
+            'foto_bukti.*' => 'required|image|mimes:png,jpg,jpeg,svg,jfif,gif|max:2048',
+            'sertifikat_bukti' => 'required',
+            'kelompok.*' => 'required'
         ];
     }
 }

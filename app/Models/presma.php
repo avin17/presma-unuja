@@ -15,18 +15,9 @@ class presma extends Model
     // {
     //     return $this->belongsTo(User::class);
     // }
-    /**
-     * The users that belong to the presma
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
-     */
     public function users()
     {
         return $this->belongsToMany(User::class, 'presma_users', 'presma_id', 'users_id');
-    }
-    public function Tahun()
-    {
-        return $this->belongsTo(Tahun::class);
     }
 
     public function Tingkat()
@@ -37,5 +28,9 @@ class presma extends Model
     public function fakultas()
     {
         return $this->belongsTo(fakultas::class);
+    }
+    public function file_presma()
+    {
+        return $this->hasMany(FilePresma::class, 'presma_id');
     }
 }

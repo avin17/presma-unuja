@@ -11,9 +11,9 @@
                 <img src="{{ asset('assets/images/user.png') }}" class="user-photo" alt="User Profile Picture">
             </div>
             <div class="dropdown">
-                <span>Mahasiswa,</span>
+                <span class="text-capitalize">{{ Auth::user()->role }}</span>
                 <a href="javascript:void(0);" class="dropdown-toggle user-name text-uppercase"
-                    data-toggle="dropdown"><strong>{{ auth()->user()->nim }}</strong></a>
+                    data-toggle="dropdown"><strong>{{ auth()->user()->username }}</strong></a>
                 <ul class="dropdown-menu dropdown-menu-right account vivify flipInY">
                     <li><a href="page-profile.html"><i class="fa fa-user"></i>My Profile</a></li>
                     <li class="divider"></li>
@@ -34,14 +34,24 @@
                             class="fa fa-dashboard">
                         </i> <span>Dashboard</span></a></li>
                 <li class="header">Apps</li>
-                <li class="{{ Request::is('dashboard/presma') ? 'active' : '' }}"><a href="/dashboard/presma">
-                        <i class="fa fa-trophy"></i>Prestasiku</a></li>
-                <li class="{{ Request::is('dashboard/presma/create') ? 'active' : '' }}"><a
-                        href="/dashboard/presma/create">
-                        <i class="fa fa-send"></i> <span>Pengajuan</span></a></li>
-                <li class="{{ Request::is('dashboard/pengumuman') ? 'active' : '' }}"><a href="/dashboard/pengumuman">
-                        <i class="fa fa-calendar"></i> <span>pengumuman</span></a>
-                </li>
+                @if (Auth::user()->role == 'mahasiswa')
+                    <li class="{{ Request::is('dashboard/presma') ? 'active' : '' }}">
+                        <a href="/dashboard/presma">
+                            <i class="fa fa-trophy"></i>Prestasiku</a>
+                        </li>
+                    <li class="{{ Request::is('dashboard/presma/create') ? 'active' : '' }}">
+                        <a href="/dashboard/presma/create">
+                            <i class="fa fa-send"></i> <span>Pengajuan</span>
+                        </a>
+                    </li>
+                @endif
+                @if (Auth::user()->role == 'staf')
+                    <li class="{{ Request::is('dashboard/pengumuman') ? 'active' : '' }}">
+                        <a href="/dashboard/pengumuman">
+                            <i class="fa fa-calendar"></i> <span>Verifikasi</span>
+                        </a>
+                    </li>
+                @endif
             </ul>
         </nav>
     </div>

@@ -5,14 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Tahun extends Model
+class FilePresma extends Model
 {
     use HasFactory;
-    protected $table = "tahun";
+
+    protected $table = "file_presma";
+    protected $guarded = ['id'];
 
     public function presma()
     {
-        return $this->hasMany(presma::class);
-        
+        return $this->belongsTo(presma::class, 'presma_id');
     }
 }

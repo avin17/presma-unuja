@@ -18,7 +18,7 @@ class LoginController extends Controller
     {
 
         $credentials = $request->validate([
-            'nim' => 'required',
+            'username' => 'required',
             'password' => 'required'
         ]);
         if (Auth::attempt($credentials)) {

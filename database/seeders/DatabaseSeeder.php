@@ -2,9 +2,9 @@
 
 namespace Database\Seeders;
 
+use App\Models\Staf;
 use App\Models\User;
 use App\Models\prodi;
-use App\Models\tahun;
 use App\Models\bidang;
 use App\Models\presma;
 use App\Models\tingkat;
@@ -58,8 +58,28 @@ class DatabaseSeeder extends Seeder
             'prodi' => 'Teknik Elektro'
         ]);
 
+        User::create([
+            'username' => 'staff',
+            'password' => bcrypt('staf1234'),
+            'role' => 'staf'
+        ]);
+        user::create([
+            'username' => '1821400088',
+            'password' => bcrypt('password'),
+            'remember_token' => 'Y1qh0OhJg6',
+            'role' => 'mahasiswa'
+        ]);
+        user::create([
+            'username' => '1821400099',
+            'password' => bcrypt('password'),
+            'remember_token' => 'Y1qh0OhJg6',
+            'role' => 'mahasiswa'
+        ]);
+
         Mahasiswa::create([
             'prodi_id' => '2',
+            'user_id' => 2,
+            'nim' => '1821400099',
             'nama' => 'fitriana',
             'jenis kelamin' => 'perempuan',
             'email' => 'fitriana1709@gmail.com',
@@ -70,6 +90,8 @@ class DatabaseSeeder extends Seeder
 
         Mahasiswa::create([
             'prodi_id' => '1',
+            'user_id' => 3,
+            'nim' => '1821400088',
             'nama' => 'avin abdurrohim',
             'jenis kelamin' => 'laki-laki',
             'email' => 'avinabdurrohim1709@gmail.com',
@@ -77,19 +99,13 @@ class DatabaseSeeder extends Seeder
             'image' => 'avin.jpg',
             'email_verified_at' => '2022-04-29 14:03:50'
         ]);
-
-
-        user::create([
-            'mahasiswa_id' => 1,
-            'nim' => '1821400088',
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
-            'remember_token' => 'Y1qh0OhJg6'
-        ]);
-        user::create([
-            'mahasiswa_id' => 2,
-            'nim' => '1821400099',
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
-            'remember_token' => 'Y1qh0OhJg6'
+        Staf::create([
+            'user_id' => 1,
+            'nama' => 'Staff Contoh',
+            'jenis kelamin' => 'laki-laki',
+            'email' => 'avinabdurrohim1709@gmail.com',
+            'image' => 'avin.jpg',
+            'email_verified_at' => '2022-04-29 14:03:50'
         ]);
 
         tingkat::create([
@@ -123,16 +139,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
 
-        tahun::create([
-            'tahun' => '2021'
-        ]);
-        tahun::create([
-            'tahun' => '2022'
-        ]);
-
-
         presma::create([
-            'tahun_id' => 1,
             'tingkat_id' => 1,
             'bidang_id' => 1,
             'nama_kegiatan' => 'lomba design grafis',
@@ -140,6 +147,7 @@ class DatabaseSeeder extends Seeder
             'tanggal' => '2022-05-19 18:36:23',
             'pembimbing' => 'pak kamil mail',
             'penyelenggara' => 'its surabaya',
+            'akademik' => true,
             'tempat' => 'sunan ampel surabaya',
             'jumlah_peserta' => '256',
             'jumlah_perguruan_tinggi' => '256',
@@ -148,7 +156,6 @@ class DatabaseSeeder extends Seeder
             'link' => 'https://presma.uny.ac.id/prestasi-presma.html?id=g0syXs6ivpAfvR%2BWvCQNc%2F%2B%2BYXBmEZbMs6dB4Z18faw%3D',
         ]);
         presma::create([
-            'tahun_id' => 1,
             'tingkat_id' => 2,
             'bidang_id' => 2,
             'nama_kegiatan' => 'lomba web design',
@@ -156,6 +163,7 @@ class DatabaseSeeder extends Seeder
             'tanggal' => '2022-05-19 18:36:23',
             'pembimbing' => 'pak kamil mail',
             'penyelenggara' => 'its surabaya',
+            'akademik' => true,
             'tempat' => 'sunan ampel surabaya',
             'jumlah_peserta' => '256',
             'jumlah_perguruan_tinggi' => '256',
@@ -164,7 +172,6 @@ class DatabaseSeeder extends Seeder
             'link' => 'https://presma.uny.ac.id/prestasi-presma.html?id=g0syXs6ivpAfvR%2BWvCQNc%2F%2B%2BYXBmEZbMs6dB4Z18faw%3D',
         ]);
         presma::create([
-            'tahun_id' => 1,
             'tingkat_id' => 1,
             'bidang_id' => 1,
             'nama_kegiatan' => 'lomba web programing',
@@ -172,6 +179,7 @@ class DatabaseSeeder extends Seeder
             'tanggal' => '2022-05-19 18:36:23',
             'pembimbing' => 'pak kamil mail',
             'penyelenggara' => 'its surabaya',
+            'akademik' => true,
             'tempat' => 'sunan ampel surabaya',
             'jumlah_peserta' => '256',
             'jumlah_perguruan_tinggi' => '256',

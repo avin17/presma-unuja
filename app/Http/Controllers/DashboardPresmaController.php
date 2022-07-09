@@ -2,12 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\PresmaRequest;
+use App\Models\User;
+use App\Models\Bidang;
 use App\Models\presma;
+use App\Models\Tingkat;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
-use Illuminate\Foundation\Auth\User;
+use App\Http\Requests\PresmaRequest;
+use App\Models\FilePresma;
+use App\Models\Mahasiswa;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class DashboardPresmaController extends Controller
 {
@@ -18,32 +24,71 @@ class DashboardPresmaController extends Controller
      */
     public function index()
     {
-        $presma = auth()->user()->presma; // collection
+        $presma = Auth::user()->presma; // collection
         // dd($presma[0]->users->toArray());
+        // dd(Auth::user()->mahasiswa);
         return view('dashboard.presma.index', [
             'title' => 'prestasiku',
             'presma' => $presma
-
         ]);
     }
     public function create()
     {
         return view('dashboard.pengajuan.create', [
-            'title' => "pengajuan"
+            'title' => "Pengajuan",
+            'tingkat' => Tingkat::get(),
+            'bidang' => Bidang::get()
         ]);
     }
     public function store(PresmaRequest $request)
     {
-        dd($request->validated());
-        // if ($request->file('image')) {
-        //     $validatedData['image'] = $request->file('image')->store('post-image');
-        // }
-        // $validatedData['user_id'] = auth()->user()->id;
-
-
-        // presma::create($validatedData);
-
-        // return redirect('/dashboard/presma')->with('success', 'New Presma has been added!');
+        // dd($request->sertifikat_bukti->extension());
+        $mahasiswa = Mahasiswa::join('users', 'mahasiswa.user_id', '=', 'users.id')->select('users.id')->whereIn('nim', $request->kelompok)->get()->toArray();
+        // dd($mahasiswa);
+        if (count($mahasiswa) < count($request->kelompok)) {
+            return back()->with('danger', 'Terdapat kelompok yang memiliki NIM salah! Silakan periksa kembali NIM kelompok anda');
+        }
+        $presma = presma::create([
+            'tingkat_id' => $request->tingkat,
+            'bidang_id' => $request->bidang,
+            'nama_kegiatan' => $request->nama_kegiatan,
+            'predikat' => $request->prestasi,
+            'tanggal' => $request->tgl_kegiatan,
+            'pembimbing' => $request->pembimbing,
+            'penyelenggara' => $request->penyelenggara,
+            'akademik' => $request->akademik == "true" ? true : false,
+            'tempat' => $request->tempat,
+            'jumlah_peserta' => $request->jumlah_peserta,
+            'jumlah_perguruan_tinggi' => $request->jumlah_perguruan_tinggi,
+            'jumlah_negara' => $request->jumlah_negara,
+            'deskripsi_kegiatan' => $request->deskripsi,
+            'link' => $request->link,
+            'status' => 'pengajuan'
+        ]);
+        if ($request->has('foto_bukti')) {
+            foreach ($request->foto_bukti as $bukti) {
+                $foto = "fotobukti-". Str::random(5) . time() . '.' . $bukti->extension();
+                $send = $bukti->storeAs('public/bukti/foto/', $foto);
+                $path = Storage::url($send);
+                FilePresma::create([
+                    'presma_id' => $presma->id,
+                    'path_file' => $path
+                ]);
+            }
+        }
+        if ($request->has('sertifikat_bukti')) {
+            $foto = "sertifikat-". Str::random(5) . time() . '.' . $request->sertifikat_bukti->extension();
+            $send = $request->sertifikat_bukti->storeAs('public/bukti/sertifikat/', $foto);
+            $path = Storage::url($send);
+            FilePresma::create([
+                'presma_id' => $presma->id,
+                'path_file' => $path
+            ]);
+        }
+        foreach ($mahasiswa as $m) {
+            DB::insert('INSERT INTO presma_users (presma_id, users_id) values (?, ?)', [$presma->id, $m['id']]);
+        }
+        return redirect('/dashboard/presma')->with('success', 'New Presma has been added!');
     }
 
     /**

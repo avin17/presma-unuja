@@ -16,13 +16,14 @@
                             <thead class="thead-light">
                                 <tr>
                                     <th>No</th>
-                                    <th>Nama Kegiatan</th>
+                                    <th>Kegiatan</th>
                                     <th>Predikat</th>
                                     <th>Tingkat</th>
                                     <th>Tanggal</th>
-                                    <th>Kondisi</th>
-                                    <th>Jumlah Anggota</th>
-                                    <th>Menu</th>
+                                    <th>Status</th>
+                                    <th>Anggota</th>
+                                    <th>Bukti</th>
+                                    <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -33,11 +34,22 @@
                                         <td>{{ $p->predikat }}</td>
                                         <td>{{ $p->tingkat->tingkat }}</td>
                                         <td>{{ $p->tanggal }}</td>
-                                        <td> <span class="badge-warning badge mr-2">Tahap Pengajuan</span></td>
                                         <td>
-                                            @foreach ($p->users as $user)
-                                                <p>{{ $user->mahasiswa->nama }}</p>
-                                            @endforeach
+                                            <span class="badge-{{ $p->status == 'pengajuan' ? 'warning' : 'success' }} badge mr-2 text-capitalize">{{ $p->status }}</span>
+                                        </td>
+                                        <td>
+                                            {{ $p->users->count() }}
+                                        </td>
+                                        <td>
+                                            <ul>
+                                                @forelse ($p->file_presma as $bukti)
+                                                    <li>
+                                                        <a href="{{ url($bukti->path_file) }}" target="__blank">Link Bukti Kegiatan</a>
+                                                    </li>
+                                                @empty
+
+                                                @endforelse
+                                            </ul>
                                         </td>
                                         <td>
                                             <a href="{{ $p->id }}" class="btn btn-info btn-sm">

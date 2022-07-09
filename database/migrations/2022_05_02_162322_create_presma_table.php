@@ -16,12 +16,11 @@ class CreatePresmaTable extends Migration
         Schema::create('presma', function (Blueprint $table) {
 
             $table->id();
-            $table->foreignId('tahun_id');
             $table->foreignId('tingkat_id');
             $table->foreignId('bidang_id');
             $table->string('nama_kegiatan');
             $table->string('predikat');
-            $table->dateTime('tanggal')->nullable();
+            $table->date('tanggal')->nullable();
             $table->string('pembimbing');
             $table->string('penyelenggara');
             $table->string('tempat');
@@ -30,6 +29,7 @@ class CreatePresmaTable extends Migration
             $table->string('jumlah_negara');
             $table->text('deskripsi_kegiatan');
             $table->string('link');
+            $table->enum('status', ['pengajuan', 'disetujui']);
             $table->timestamps();
         });
     }

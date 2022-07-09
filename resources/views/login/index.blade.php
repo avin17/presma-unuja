@@ -53,11 +53,11 @@
                         <form class="form-auth-small" action="/login" method="post">
                             @csrf
                             <div class="form-group c_form_group">
-                                <label for="nim">Nim</label>
-                                <input type="text" class="form-control @error('nim') is-invalid @enderror" name="nim"
-                                    id="nim" placeholder="Enter your Nim" required value="{{ old('nim') }}"
+                                <label for="username">Username</label>
+                                <input type="text" class="form-control @error('username') is-invalid @enderror" name="username"
+                                    id="username" placeholder="Enter your username" required value="{{ old('username') }}"
                                     autofocus>
-                                @error('nim')
+                                @error('username')
                                     <div class="invalid-feedback">
                                         {{ $message }}
                                     </div>

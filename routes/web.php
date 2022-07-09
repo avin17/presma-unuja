@@ -32,18 +32,19 @@ Route::get('/', function () {
 
 Route::get('/login', [LoginController::class, 'index'])->name('login')->middleware('guest');
 Route::post('/login', [LoginController::class, 'authenticate']);
-Route::post('/logout', [LoginController::class, 'logout']);
 
 
-Route::get('/dashboard', function () {
-    return view('dashboard.index', [
-        'title' => 'dashboard'
-    ]);
-})->middleware('auth');
-Route::get('/dashboard/pengumuman', function () {
-    return view('dashboard.pengumuman.index', [
-        'title' => 'pengumuman'
-    ]);
+Route::middleware('auth')->group(function(){
+    Route::post('/logout', [LoginController::class, 'logout']);
+    Route::get('/dashboard', function () {
+        return view('dashboard.index', [
+            'title' => 'dashboard'
+        ]);
+    });
+    Route::get('/dashboard/pengumuman', function () {
+        return view('dashboard.pengumuman.index', [
+            'title' => 'pengumuman'
+        ]);
+    })->middleware('staf');
+    Route::resource('/dashboard/presma', DashboardPresmaController::class)->middleware('mahasiswa');
 });
-Route::resource('/dashboard/presma', DashboardPresmaController::class)->middleware('auth');
-// Route::post('try', [DashboardPresmaController::class, 'store'])->name('try.store');

@@ -52,33 +52,34 @@
                                         <label for="nama_kegitan" class="col-sm-4 col-form-label">Nama Kegitan</label>
                                         <div class="col-sm-8">
                                             <input type="text" class="form-control" id="nama_kegitan"
-                                                name="nama_kegiatan" placeholder="nama kegiatan" autofocus>
+                                                name="nama_kegiatan" placeholder="Nama Kegiatan" autofocus>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label for="tgl_kegiatan" class="col-sm-4 col-form-label">Tanggal kegiatan</label>
                                         <div class="col-sm-8">
-                                            <input type="date" class="form-control" id="tgl_kegiatan"
-                                                name="tgl_kegiatan">
+                                            <input type="date" class="form-control" id="tgl_kegiatan" name="tgl_kegiatan">
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-sm-4 col-form-label" for="prestasi">Prestasi</label>
                                         <div class="col-sm-8">
                                             <select class="form-control" id="prestasi" name="prestasi">
-                                                <option>Juara I</option>
-                                                <option>Juara II</option>
-                                                <option>Juara III</option>
+                                                <option value="Juara 1">Juara I</option>
+                                                <option value="Juara 2">Juara II</option>
+                                                <option value="Juara 3">Juara III</option>
                                             </select>
                                         </div>
-
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-sm-4 col-form-label" for="tingkat">Tingkat</label>
                                         <div class="col-sm-8">
                                             <select class="form-control" id="tingkat" name="tingkat">
-                                                <option>Nasional</option>
-                                                <option>Internasional</option>
+                                                @forelse ($tingkat as $t)
+                                                    <option value="{{ $t->id }}">{{ $t->tingkat }}</option>
+                                                @empty
+                                                    <option value="" disabled selected>Tidak ada tingkat!</option>
+                                                @endforelse
                                             </select>
                                         </div>
 
@@ -87,12 +88,11 @@
                                         <label class="col-sm-4 col-form-label" for="bidang">Bidang</label>
                                         <div class="col-sm-8">
                                             <select class="form-control" id="bidang" name="bidang">
-                                                <option>Teknologi</option>
-                                                <option>Seni</option>
-                                                <option>Keagamaan</option>
-                                                <option>Bahasa</option>
-                                                <option>Multimedia</option>
-                                                <option>Olahraga</option>
+                                                @forelse ($bidang as $b)
+                                                    <option value="{{ $b->id }}">{{ $b->bidang }}</option>
+                                                @empty
+                                                    <option value="" disabled selected>Tidak ada bidang!</option>
+                                                @endforelse
                                             </select>
                                         </div>
                                     </div>
@@ -106,39 +106,48 @@
                                     <div class="form-group row">
                                         <label for="penyelenggara" class="col-sm-4 col-form-label">Penyelenggara</label>
                                         <div class="col-sm-8">
-                                            <input type="text" class="form-control" id="penyelenggara"
-                                                placeholder="Penyelenggara" name="penyelenggara">
+                                            <input type="text" class="form-control" id="penyelenggara" placeholder="Penyelenggara" name="penyelenggara">
                                         </div>
                                     </div>
 
                                     <div class="form-group row">
                                         <label for="tempat" class="col-sm-4 col-form-label">Tempat</label>
                                         <div class="col-sm-8">
-                                            <input type="text" class="form-control" id="tempat" placeholder="Tempat"
-                                                autofocus name="tempat">
+                                            <input type="text" class="form-control" id="tempat" placeholder="Tempat" autofocus name="tempat">
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label for="jumlah_peserta" class="col-sm-4 col-form-label">jumlah peserta</label>
+                                        <label for="jumlah_peserta" class="col-sm-4 col-form-label">
+                                            Jumlah Peserta
+                                        </label>
                                         <div class="col-sm-8">
-                                            <input type="text" class="form-control" id="jumlah_peserta"
-                                                placeholder="jumlah_peserta" name="jumlah_peserta">
+                                            <input type="number" class="form-control" id="jumlah_peserta"
+                                                placeholder="Jumlah Peserta" name="jumlah_peserta">
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label for="jumlah perguruan tinggi" class="col-sm-4 col-form-label">jumlah
-                                            perguruan
-                                            tinggi</label>
+                                        <label for="jumlah perguruan tinggi" class="col-sm-4 col-form-label">
+                                            Jumlah Perguruan Tinggi
+                                        </label>
                                         <div class="col-sm-8">
-                                            <input type="text" class="form-control" id="jumlah perguruan tinggi"
-                                                placeholder="jumlah perguruan tinggi" name="jumlah_perguruan_tinggi">
+                                            <input type="number" class="form-control" id="jumlah perguruan tinggi"
+                                                placeholder="Jumlah Perguruan Tinggi" name="jumlah_perguruan_tinggi">
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label for="jumlah negara" class="col-sm-4 col-form-label">jumlah negara</label>
+                                        <label for="jumlah negara" class="col-sm-4 col-form-label">Jumlah Negara</label>
                                         <div class="col-sm-8">
-                                            <input type="text" class="form-control" id="jumlah negara"
-                                                placeholder="jumlah negara" name="jumlah_negara">
+                                            <input type="number" class="form-control" id="jumlah negara"
+                                                placeholder="Jumlah Negara" name="jumlah_negara">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="akademik" class="col-sm-4 col-form-label">Jenis Kegiatan</label>
+                                        <div class="col-sm-8">
+                                            <select name="akademik" id="akademik" class="form-control">
+                                                <option value="true">Akademik</option>
+                                                <option value="false">Non-Akademik</option>
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="form-group row">
@@ -155,35 +164,46 @@
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="col-sm-4 col-form-label" for="exampleFormControlTextarea1">Bukti
-                                            :</label>
+                                        <label class="col-sm-4 col-form-label" for="exampleFormControlTextarea1">
+                                            Bukti Mengikuti Lomba:
+                                        </label>
                                         <div class="col-sm-6">
-                                            <input type="file" class="dropify form-control" name="bukti_file">
+                                            <input type="file" multiple class="dropify form-control" name="foto_bukti[]">
+                                        </div>
+                                    </div>
+                                    <div class="pl-8 font-italic">
+                                        <small class="text-danger">
+                                            Catatan <br>
+                                            01. Bukti berupa foto mengikuti prestasi <br>
+                                            02. Ukuran max 2Mb
+                                        </small>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-sm-4 col-form-label" for="exampleFormControlTextarea1">
+                                            Bukti Sertifikat/Piaagam :
+                                        </label>
+                                        <div class="col-sm-6">
+                                            <input type="file" class="dropify form-control" name="sertifikat_bukti">
                                         </div>
                                     </div>
                                     <div class="pl-8 font-italic">
                                         <small class="text-danger">
                                             Catatan <br>
                                             01. Bukti berupa scan piagam/sertifikat yang telah diperoleh <br>
-                                            02. Ukuran max 2Mb
                                         </small>
-                                    </div>
-                                    <div class="text-center">
-                                        <button type="button"
-                                            class="btn btn-primary theme-bg gradient btn-round mr-2">Simpan</button>
-                                        <button type="button" class="btn btn-danger btn-round ml-2"> Batal </button>
                                     </div>
                                 </div>
 
                             </div>
                         </fieldset>
-                        <h3>Kelompok</h3>
+                        <h3>Anggota</h3>
                         <fieldset>
-                            <p>Masukkan NIM Anggota Kelompok anda</p>
+                            <p>Masukkan NIM Anggota lomba</p>
                             <div class="col-md-6">
                                 <table class="kelompok">
                                     <tr>
-                                        <td><input type="number" class="form-control" id="kelompok" name="kelompok[]">
+                                        <td>
+                                            <input type="number" class="form-control" id="kelompok" name="kelompok[]">
                                         </td>
                                         <td>
                                             <button type="button" class="btn btn-info ml-3" id="add_btn">
@@ -199,8 +219,12 @@
                         <fieldset>
                             <div class="form-group">
                                 <div class="fancy-checkbox">
-                                    <label><input type="checkbox" name="acceptTerms"><span>I agree with the Terms and
-                                            Conditions.</span></label>
+                                    <label>
+                                        <input type="checkbox" name="acceptTerms">
+                                        <span>
+                                            I agree with the Terms and Conditions.
+                                        </span>
+                                    </label>
                                 </div>
                             </div>
                         </fieldset>

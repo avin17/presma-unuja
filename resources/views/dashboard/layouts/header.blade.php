@@ -14,75 +14,11 @@
         <div class="navbar-right">
             <div id="navbar-menu">
                 <ul class="nav navbar-nav">
-                    <li class="dropdown hidden-xs">
-                        <a href="javascript:void(0);" class="dropdown-toggle icon-menu"
-                            data-toggle="dropdown">Create</a>
-                        <div class="dropdown-menu pb-0 mt-0">
-                            <a class="dropdown-item pt-2 pb-2" href="javascript:void(0);">User</a>
-                            <a class="dropdown-item pt-2 pb-2" href="javascript:void(0);">Product</a>
-                            <a class="dropdown-item pt-2 pb-2" href="javascript:void(0);">Category</a>
-                            <a class="dropdown-item pt-2 pb-2" href="javascript:void(0);">Report</a>
-                        </div>
-                    </li>
-
-                    <li class="dropdown">
-                        <a href="javascript:void(0);" class="dropdown-toggle icon-menu" data-toggle="dropdown">
-                            <i class="fa fa-bell-o"></i>
-                            <span class="notification-dot info">4</span>
-                        </a>
-                        <ul class="dropdown-menu feeds_widget mt-0 animation-li-delay">
-                            <li class="header theme-bg gradient mt-0 text-light">You have 4 New
-                                Notifications</li>
-                            <li>
-                                <a href="#">
-                                    <div class="mr-4"><i class="fa fa-check text-red"></i></div>
-                                    <div class="feeds-body">
-                                        <h4 class="title text-danger">Issue Fixed <small
-                                                class="float-right text-muted font-12">9:10 AM</small></h4>
-                                        <small>WE have fix all Design bug with Responsive</small>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <div class="mr-4"><i class="fa fa-user text-info"></i></div>
-                                    <div class="feeds-body">
-                                        <h4 class="title text-info">New User <small
-                                                class="float-right text-muted font-12">9:15 AM</small></h4>
-                                        <small>I feel great! Thanks team</small>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <div class="mr-4"><i class="fa fa-question-circle text-warning"></i></div>
-                                    <div class="feeds-body">
-                                        <h4 class="title text-warning">Server Warning <small
-                                                class="float-right text-muted font-12">9:17 AM</small></h4>
-                                        <small>Your connection is not private</small>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <div class="mr-4"><i class="fa fa-thumbs-o-up text-success"></i></div>
-                                    <div class="feeds-body">
-                                        <h4 class="title text-success">2 New Feedback <small
-                                                class="float-right text-muted font-12">9:22 AM</small></h4>
-                                        <small>It will give a smart finishing to your site</small>
-                                    </div>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li><a href="javascript:void(0);" class="right_toggle icon-menu" title="Right Menu"><i
-                                class="fa fa-comments-o"></i></a></li>
-                    <li class="hidden-xs"><a href="javascript:void(0);" id="btnFullscreen"
-                            class="icon-menu"><i class="fa fa-arrows-alt"></i></a></li>
-
+                    <li class="hidden-xs"><a href="javascript:void(0);" id="btnFullscreen" class="icon-menu"><i
+                                class="fa fa-arrows-alt"></i></a></li>
                     <li>
-                        <a href="/" class="btn btn-primary theme-bg gradient"><i class="icon-arrow-left"></i> Back To
-                            Blog</a>
+                        <a href="/" class="btn btn-primary theme-bg gradient"><i class="icon-arrow-left"></i> Back
+                            To Blog</a>
                     </li>
                 </ul>
             </div>

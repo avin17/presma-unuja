@@ -1,7 +1,8 @@
 <header class="header-one">
     <div class="top-header">
         <div class="container clearfix">
-            <div class="logo float-left"><a href="index.html"><img src="assets/landing/images/logo/logo.png" alt=""></a>
+            <div class="logo float-left"><a href="index.html"><img src="assets/landing/images/logo/logo.png"
+                        alt=""></a>
             </div>
             <div class="address-wrapper float-right">
                 <ul>
@@ -28,9 +29,11 @@
                 <div class="menu-wrapper float-left">
                     <nav id="mega-menu-holder" class="clearfix ml-5">
                         <ul class="clearfix">
-                            <li><a href="contact.html ">Home</a></li>
-                            <li class="active"><a href="contact.html">Prestasi</a></li>
-                            <li><a href="contact.html">Kegiatan</a></li>
+                            <li class="{{ Request::is('/') ? 'active' : '' }}"><a href="/">Home</a></li>
+                            <li class="{{ Request::is('prestasi*') ? 'active' : '' }}"><a href="prestasi">Prestasi</a>
+                            </li>
+                            <li class="{{ Request::is('kegiatan*') ? 'active' : '' }}"><a href="kegiatan">Kegiatan</a>
+                            </li>
                             <li><a href="#">Bantuan</a>
                                 <ul class="dropdown">
                                     <li><a href="blog.html">Panduan</a></li>

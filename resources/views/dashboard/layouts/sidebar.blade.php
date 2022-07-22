@@ -13,7 +13,13 @@
             <div class="dropdown">
                 <span class="text-capitalize">{{ Auth::user()->role }}</span>
                 <a href="javascript:void(0);" class="dropdown-toggle user-name text-uppercase"
-                    data-toggle="dropdown"><strong>{{ auth()->user()->username }}</strong></a>
+                    data-toggle="dropdown"><strong>
+                        @if (auth()->user()->mahasiswa)
+                            {{ auth()->user()->mahasiswa->nama }}
+                        @else
+                            {{ auth()->user()->staf->nama }}
+                        @endif
+                    </strong></a>
                 <ul class="dropdown-menu dropdown-menu-right account vivify flipInY">
                     <li><a href="page-profile.html"><i class="fa fa-user"></i>My Profile</a></li>
                     <li class="divider"></li>
@@ -29,23 +35,54 @@
         </div>
         <nav id="left-sidebar-nav" class="sidebar-nav">
             <ul id="main-menu" class="metismenu animation-li-delay">
-                <li class="header">Main</li>
-                <li class="{{ Request::is('dashboard') ? 'active' : '' }}"><a href="/dashboard"><i
-                            class="fa fa-dashboard">
-                        </i> <span>Dashboard</span></a></li>
                 <li class="header">Apps</li>
                 @if (Auth::user()->role == 'mahasiswa')
-                    <li class="{{ Request::is('dashboard/presma') ? 'active' : '' }}">
+                    <li class="{{ Request::is('dashboard') ? 'active' : '' }}">
+                        <a href="/dashboard">
+                            <i class="fa fa-dashboard"></i><span>Dashboard</span></a>
+                    </li>
+                    {{-- <li class="{{ Request::is('dashboard/presma*') ? 'active' : '' }}">
                         <a href="/dashboard/presma">
                             <i class="fa fa-trophy"></i>Prestasiku</a>
-                        </li>
-                    <li class="{{ Request::is('dashboard/presma/create') ? 'active' : '' }}">
-                        <a href="/dashboard/presma/create">
+                    </li> --}}
+                    <li
+                        class="
+                    @if (Request::is('mahasiswa/presma')) {{ 'active' }}
+                    @elseif(Request::is('mahasiswa/presma{{ $presma->id }}*')) 
+                    {{ 'active' }} 
+                    @else
+                    {{ '' }} @endif">
+                        <a href="/mahasiswa/presma">
+                            <i class="fa fa-trophy"></i>Prestasiku</a>
+                    </li>
+                    <li class="{{ Request::is('mahasiswa/presma/create') ? 'active' : '' }}">
+                        <a href="/mahasiswa/presma/create">
                             <i class="fa fa-send"></i> <span>Pengajuan</span>
                         </a>
                     </li>
                 @endif
+
                 @if (Auth::user()->role == 'staf')
+                    <li class="{{ Request::is('dashboard') ? 'active' : '' }}">
+                        <a href="/dashboard">
+                            <i class="fa fa-dashboard"></i><span>Dashboard</span></a>
+                    </li>
+                    <li>
+                    <li class="{{ Request::is('admin/presma') ? 'active' : '' }}">
+                        <a href="/admin/presma">
+                            <i class="fa fa-trophy"></i>Presma</a>
+                    </li>
+                    </li>
+                    <li class="{{ Request::is('admin/presma/create') ? 'active' : '' }}">
+                        <a href="/admin/presma/create">
+                            <i class="fa fa-plus"></i> <span>Tambah Prestasi</span>
+                        </a>
+                    </li>
+                    {{-- <li class="{{ Request::is('dashboard/admin/form') ? 'active' : '' }}">
+                        <a href="/dashboard/presma/create">
+                            <i class="fa fa-send"></i> <span>Edit Form pengajuan/span>
+                        </a>
+                    </li> --}}
                     <li class="{{ Request::is('dashboard/pengumuman') ? 'active' : '' }}">
                         <a href="/dashboard/pengumuman">
                             <i class="fa fa-calendar"></i> <span>Verifikasi</span>

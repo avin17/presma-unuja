@@ -24,6 +24,14 @@ class presma extends Model
     {
         return $this->belongsTo(Tingkat::class);
     }
+    public function bidang()
+    {
+        return $this->belongsTo(bidang::class);
+    }
+    public function predikat()
+    {
+        return $this->belongsTo(predikat::class);
+    }
 
     public function fakultas()
     {

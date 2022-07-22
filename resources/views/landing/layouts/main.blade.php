@@ -16,7 +16,8 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="#061948">
     <title>{{ $title }}</title>
     <!-- Favicon -->
-    <link rel="icon" type="image/png" sizes="56x56" href="{{ asset('assets/landing/images/fav-icon/icon.png') }}">
+    <link rel="icon" type="image/png" sizes="56x56"
+        href="{{ asset('assets/landing/images/fav-icon/icon.png') }}">
     <!-- Main style sheet -->
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/landing/css/style.css') }}">
     <!-- responsive style sheet -->
@@ -33,9 +34,6 @@
 <body>
     <div class="main-page-wrapper">
 
-        <!-- ===================================================
-    Loading Transition
-   ==================================================== -->
         <div id="loader-wrapper">
             <div id="loader"></div>
         </div>
@@ -43,7 +41,7 @@
 
         @include('landing.layouts.header')
         @yield('container')
-
+        @include('landing.layouts.footer')
 
         <script src="{{ asset('assets/landing/vendor/jquery.2.2.3.min.js') }}"></script>
         <!-- Popper js -->

@@ -10,7 +10,7 @@ use App\Models\presma;
 use App\Models\tingkat;
 use App\Models\fakultas;
 use App\Models\Mahasiswa;
-use App\Models\presmamhs;
+use App\Models\predikat;
 use App\Models\presma_users;
 use Illuminate\Database\Seeder;
 
@@ -75,10 +75,40 @@ class DatabaseSeeder extends Seeder
             'remember_token' => 'Y1qh0OhJg6',
             'role' => 'mahasiswa'
         ]);
-
+        user::create([
+            'username' => '1821400077',
+            'password' => bcrypt('password'),
+            'remember_token' => 'Y1qh0OhJg6',
+            'role' => 'mahasiswa'
+        ]);
+        user::create([
+            'username' => '1821400066',
+            'password' => bcrypt('password'),
+            'remember_token' => 'Y1qh0OhJg6',
+            'role' => 'mahasiswa'
+        ]);
+        Staf::create([
+            'user_id' => 1,
+            'nama' => 'Subairi',
+            'jenis kelamin' => 'laki-laki',
+            'email' => 'subairi123@gmail.com',
+            'image' => 'subairi.jpg',
+            'email_verified_at' => '2022-04-29 14:03:50'
+        ]);
+        Mahasiswa::create([
+            'prodi_id' => '1',
+            'user_id' => 2,
+            'nim' => '1821400088',
+            'nama' => 'avin abdurrohim',
+            'jenis kelamin' => 'laki-laki',
+            'email' => 'avinabdurrohim1709@gmail.com',
+            'angkatan' => '2018',
+            'image' => 'avin.jpg',
+            'email_verified_at' => '2022-04-29 14:03:50'
+        ]);
         Mahasiswa::create([
             'prodi_id' => '2',
-            'user_id' => 2,
+            'user_id' => 3,
             'nim' => '1821400099',
             'nama' => 'fitriana',
             'jenis kelamin' => 'perempuan',
@@ -90,21 +120,24 @@ class DatabaseSeeder extends Seeder
 
         Mahasiswa::create([
             'prodi_id' => '1',
-            'user_id' => 3,
-            'nim' => '1821400088',
-            'nama' => 'avin abdurrohim',
+            'user_id' => 4,
+            'nim' => '1821400077',
+            'nama' => 'doni salmanan',
             'jenis kelamin' => 'laki-laki',
-            'email' => 'avinabdurrohim1709@gmail.com',
+            'email' => 'donisalmanan09@gmail.com',
             'angkatan' => '2018',
-            'image' => 'avin.jpg',
+            'image' => 'doni.jpg',
             'email_verified_at' => '2022-04-29 14:03:50'
         ]);
-        Staf::create([
-            'user_id' => 1,
-            'nama' => 'Staff Contoh',
+        Mahasiswa::create([
+            'prodi_id' => '1',
+            'user_id' => 5,
+            'nim' => '1821400066',
+            'nama' => 'salman alfarisi',
             'jenis kelamin' => 'laki-laki',
-            'email' => 'avinabdurrohim1709@gmail.com',
-            'image' => 'avin.jpg',
+            'email' => 'salmanalfarisi12@gmail.com',
+            'angkatan' => '2018',
+            'image' => 'salman.jpg',
             'email_verified_at' => '2022-04-29 14:03:50'
         ]);
 
@@ -138,12 +171,21 @@ class DatabaseSeeder extends Seeder
             'bidang' => 'Seni'
         ]);
 
+        predikat::create([
+            'predikat' => 'Juara I'
+        ]);
+        predikat::create([
+            'predikat' => 'Juara II'
+        ]);
+        predikat::create([
+            'predikat' => 'Juara III'
+        ]);
 
         presma::create([
             'tingkat_id' => 1,
             'bidang_id' => 1,
+            'predikat_id' => 1,
             'nama_kegiatan' => 'lomba design grafis',
-            'Predikat' => 'Juara 1',
             'tanggal' => '2022-05-19 18:36:23',
             'pembimbing' => 'pak kamil mail',
             'penyelenggara' => 'its surabaya',
@@ -151,15 +193,15 @@ class DatabaseSeeder extends Seeder
             'tempat' => 'sunan ampel surabaya',
             'jumlah_peserta' => '256',
             'jumlah_perguruan_tinggi' => '256',
-            'jumlah_negara' => 1,
+            'jumlah_negara' => '2',
             'deskripsi_kegiatan' => 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.',
             'link' => 'https://presma.uny.ac.id/prestasi-presma.html?id=g0syXs6ivpAfvR%2BWvCQNc%2F%2B%2BYXBmEZbMs6dB4Z18faw%3D',
         ]);
         presma::create([
             'tingkat_id' => 2,
             'bidang_id' => 2,
+            'predikat_id' => 1,
             'nama_kegiatan' => 'lomba web design',
-            'Predikat' => 'Juara 3',
             'tanggal' => '2022-05-19 18:36:23',
             'pembimbing' => 'pak kamil mail',
             'penyelenggara' => 'its surabaya',
@@ -167,15 +209,15 @@ class DatabaseSeeder extends Seeder
             'tempat' => 'sunan ampel surabaya',
             'jumlah_peserta' => '256',
             'jumlah_perguruan_tinggi' => '256',
-            'jumlah_negara' => 1,
+            'jumlah_negara' => '3',
             'deskripsi_kegiatan' => 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.',
             'link' => 'https://presma.uny.ac.id/prestasi-presma.html?id=g0syXs6ivpAfvR%2BWvCQNc%2F%2B%2BYXBmEZbMs6dB4Z18faw%3D',
         ]);
         presma::create([
             'tingkat_id' => 1,
             'bidang_id' => 1,
+            'predikat_id' => 3,
             'nama_kegiatan' => 'lomba web programing',
-            'Predikat' => 'Juara 2',
             'tanggal' => '2022-05-19 18:36:23',
             'pembimbing' => 'pak kamil mail',
             'penyelenggara' => 'its surabaya',
@@ -183,7 +225,7 @@ class DatabaseSeeder extends Seeder
             'tempat' => 'sunan ampel surabaya',
             'jumlah_peserta' => '256',
             'jumlah_perguruan_tinggi' => '256',
-            'jumlah_negara' => 1,
+            'jumlah_negara' => '4',
             'deskripsi_kegiatan' => 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.',
             'link' => 'https://presma.uny.ac.id/prestasi-presma.html?id=g0syXs6ivpAfvR%2BWvCQNc%2F%2B%2BYXBmEZbMs6dB4Z18faw%3D',
         ]);
@@ -191,11 +233,10 @@ class DatabaseSeeder extends Seeder
 
 
 
-        // presmamhs::create([
-        //     'user_id' => 1,
-        //     'presma_id' => 1
-        // ]);
 
-
+        //     presma_users::create([
+        //         'user_id' => 1,
+        //         'presma_id' => 1
+        //     ]);
     }
 }

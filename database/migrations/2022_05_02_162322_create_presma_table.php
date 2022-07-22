@@ -18,8 +18,8 @@ class CreatePresmaTable extends Migration
             $table->id();
             $table->foreignId('tingkat_id');
             $table->foreignId('bidang_id');
+            $table->foreignId('predikat_id');
             $table->string('nama_kegiatan');
-            $table->string('predikat');
             $table->date('tanggal')->nullable();
             $table->string('pembimbing');
             $table->string('penyelenggara');

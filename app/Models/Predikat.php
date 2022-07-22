@@ -5,13 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-
-
-class Bidang extends Model
+class Predikat extends Model
 {
     use HasFactory;
-    protected $table = "bidang";
-    protected $guarded = ['id'];
+    protected $table = 'predikat';
+    protected $guarded = 'id';
+
     public function presma()
     {
         return $this->hasMany(presma::class);

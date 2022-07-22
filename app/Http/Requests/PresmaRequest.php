@@ -25,8 +25,8 @@ class PresmaRequest extends FormRequest
     {
         return [
             'nama_kegiatan' => 'required',
-            'tgl_kegiatan' => 'required|date',
-            'prestasi' => 'required',
+            'tanggal' => 'required|date',
+            'predikat' => 'required',
             'tingkat' => 'required',
             'bidang' => 'required',
             'pembimbing' => 'required',

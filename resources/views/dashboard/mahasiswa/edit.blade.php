@@ -1,9 +1,10 @@
 @extends('dashboard.layouts.main')
 
 @section('container')
+    {{-- {{ dd($presma->tanggal) }} --}}
     {{-- <div class="block-header">
     </div> --}}
-    @if ($errors->any())
+    {{-- @if ($errors->any())
         <div class="alert alert-danger">
             <ul>
                 @foreach ($errors->all() as $error)
@@ -11,7 +12,7 @@
                 @endforeach
             </ul>
         </div>
-    @endif
+    @endif --}}
     <div class="row clearfix">
         <div class="col-md-12">
             <div class="card">
@@ -51,23 +52,46 @@
                                     <div class="form-group row">
                                         <label for="nama_kegitan" class="col-sm-4 col-form-label">Nama Kegitan</label>
                                         <div class="col-sm-8">
-                                            <input type="text" class="form-control" id="nama_kegitan"
-                                                name="nama_kegiatan" placeholder="Nama Kegiatan" autofocus>
+                                            <input type="text"
+                                                class="form-control @error('nama_kegiatan') is-invalid @enderror"
+                                                id="nama_kegitan" name="nama_kegiatan" placeholder="Nama Kegiatan" autofocus
+                                                value="{{ old('nama_kegiatan', $presma->nama_kegiatan) }}">
+                                            @error('nama_kegiatan')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
                                         </div>
                                     </div>
+
                                     <div class="form-group row">
-                                        <label for="tgl_kegiatan" class="col-sm-4 col-form-label">Tanggal kegiatan</label>
+                                        <label for="tgl_kegiatan" class="col-sm-4 col-form-label">Tanggal
+                                            kegiatan</label>
                                         <div class="col-sm-8">
-                                            <input type="date" class="form-control" id="tgl_kegiatan" name="tgl_kegiatan">
+                                            <input type="date"
+                                                class="form-control @error('tanggal') is-invalid @enderror" id="tanggal"
+                                                name="tanggal" value="{{ old('tanggal', $presma->tanggal) }}">
+                                            @error('tanggal')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
                                         </div>
                                     </div>
+
                                     <div class="form-group row">
-                                        <label class="col-sm-4 col-form-label" for="prestasi">Prestasi</label>
+                                        <label class="col-sm-4 col-form-label" for="predikat">Predikat</label>
                                         <div class="col-sm-8">
-                                            <select class="form-control" id="prestasi" name="prestasi">
-                                                <option value="Juara 1">Juara I</option>
-                                                <option value="Juara 2">Juara II</option>
-                                                <option value="Juara 3">Juara III</option>
+                                            <select class="form-control" id="predikat" name="predikat">
+                                                @foreach ($predikat as $pr)
+                                                    @if (old('predikat', $presma->predikat_id) == $pr->id)
+                                                        <option value="{{ $pr->id }}" selected>
+                                                            {{ $pr->predikat }}
+                                                        </option>
+                                                    @else
+                                                        <option value="{{ $pr->id }}">{{ $pr->predikat }}</option>
+                                                    @endif
+                                                @endforeach
                                             </select>
                                         </div>
                                     </div>
@@ -75,11 +99,15 @@
                                         <label class="col-sm-4 col-form-label" for="tingkat">Tingkat</label>
                                         <div class="col-sm-8">
                                             <select class="form-control" id="tingkat" name="tingkat">
-                                                @forelse ($tingkat as $t)
-                                                    <option value="{{ $t->id }}">{{ $t->tingkat }}</option>
-                                                @empty
-                                                    <option value="" disabled selected>Tidak ada tingkat!</option>
-                                                @endforelse
+                                                @foreach ($tingkat as $t)
+                                                    @if (old('tingkat', $presma->tingkat_id) == $t->id)
+                                                        <option value="{{ $t->id }}" selected>
+                                                            {{ $t->tingkat }}
+                                                        </option>
+                                                    @else
+                                                        <option value="{{ $t->id }}">{{ $t->tingkat }}</option>
+                                                    @endif
+                                                @endforeach
                                             </select>
                                         </div>
 
@@ -88,32 +116,60 @@
                                         <label class="col-sm-4 col-form-label" for="bidang">Bidang</label>
                                         <div class="col-sm-8">
                                             <select class="form-control" id="bidang" name="bidang">
-                                                @forelse ($bidang as $b)
-                                                    <option value="{{ $b->id }}">{{ $b->bidang }}</option>
-                                                @empty
-                                                    <option value="" disabled selected>Tidak ada bidang!</option>
-                                                @endforelse
+                                                @foreach ($bidang as $b)
+                                                    @if (old('bidang', $presma->bidang_id) == $b->id)
+                                                        <option value="{{ $b->id }}" selected>
+                                                            {{ $b->bidang }}
+                                                        </option>
+                                                    @else
+                                                        <option value="{{ $b->id }}">{{ $b->bidang }}</option>
+                                                    @endif
+                                                @endforeach
                                             </select>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label for="pembimbing" class="col-sm-4 col-form-label">Pembimbing</label>
                                         <div class="col-sm-8">
-                                            <input type="text" class="form-control" id="pembimbing"
-                                                placeholder="Pembimbing" name="pembimbing">
+                                            <input type="text"
+                                                class="form-control @error('pembimbing') is-invalid @enderror"
+                                                id="pembimbing" placeholder="Pembimbing" name="pembimbing"
+                                                value="{{ old('pembimbing', $presma->pembimbing) }}">
+                                            @error('pembimbing')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
                                         </div>
                                     </div>
-                                    <div class="form-group row">
+                                    <div class="form-group
+                                                row">
                                         <label for="penyelenggara" class="col-sm-4 col-form-label">Penyelenggara</label>
                                         <div class="col-sm-8">
-                                            <input type="text" class="form-control" id="penyelenggara" placeholder="Penyelenggara" name="penyelenggara">
+                                            <input type="text"
+                                                class="form-control @error('penyelenggara') is-invalid @enderror"
+                                                id="penyelenggara" placeholder="Penyelenggara" name="penyelenggara"
+                                                value="{{ old('penyelenggara', $presma->penyelenggara) }}">
+                                            @error('penyelenggara')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
                                         </div>
                                     </div>
 
                                     <div class="form-group row">
                                         <label for="tempat" class="col-sm-4 col-form-label">Tempat</label>
                                         <div class="col-sm-8">
-                                            <input type="text" class="form-control" id="tempat" placeholder="Tempat" autofocus name="tempat">
+                                            <input type="text"
+                                                class="form-control @error('tempat') is-invalid @enderror" id="tempat"
+                                                placeholder="Tempat" autofocus name="tempat"
+                                                value="{{ old('tempat', $presma->tempat) }}">
+                                            @error('tempat')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
                                         </div>
                                     </div>
                                     <div class="form-group row">
@@ -121,8 +177,15 @@
                                             Jumlah Peserta
                                         </label>
                                         <div class="col-sm-8">
-                                            <input type="number" class="form-control" id="jumlah_peserta"
-                                                placeholder="Jumlah Peserta" name="jumlah_peserta">
+                                            <input type="number"
+                                                class="form-control @error('jumlah_peserta') is-invalid @enderror"
+                                                id="jumlah_peserta" placeholder="Jumlah Peserta" name="jumlah_peserta"
+                                                value="{{ old('jumlah_peserta', $presma->jumlah_peserta) }}">
+                                            @error('jumlah_peserta')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
                                         </div>
                                     </div>
                                     <div class="form-group row">
@@ -130,15 +193,31 @@
                                             Jumlah Perguruan Tinggi
                                         </label>
                                         <div class="col-sm-8">
-                                            <input type="number" class="form-control" id="jumlah perguruan tinggi"
-                                                placeholder="Jumlah Perguruan Tinggi" name="jumlah_perguruan_tinggi">
+                                            <input type="number"
+                                                class="form-control @error('jumlah_perguruan_tinggi') is-invalid @enderror"
+                                                id="jumlah perguruan tinggi" placeholder="Jumlah Perguruan Tinggi"
+                                                name="jumlah_perguruan_tinggi"
+                                                value="{{ old('jumlah_perguruan_tinggi', $presma->jumlah_perguruan_tinggi) }}">
+                                            @error('jumlah_perguruan_tinggi')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label for="jumlah negara" class="col-sm-4 col-form-label">Jumlah Negara</label>
+                                        <label for="jumlah negara" class="col-sm-4 col-form-label">Jumlah
+                                            Negara</label>
                                         <div class="col-sm-8">
-                                            <input type="number" class="form-control" id="jumlah negara"
-                                                placeholder="Jumlah Negara" name="jumlah_negara">
+                                            <input type="number"
+                                                class="form-control @error('jumlah_negara') is-invalid @enderror"
+                                                id="jumlah negara" placeholder="Jumlah Negara" name="jumlah_negara"
+                                                value="{{ old('jumlah_negara', $presma->jumlah_negara) }}">
+                                            @error('jumlah_negara')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
                                         </div>
                                     </div>
                                     <div class="form-group row">
@@ -153,14 +232,21 @@
                                     <div class="form-group row">
                                         <label for="Deskripsi" class="col-sm-4 col-form-label">Deskripsi</label>
                                         <div class="col-sm-8">
-                                            <textarea class="form-control" id="Deskripsi" rows="3" name="deskripsi"></textarea>
+                                            <textarea class="form-control" id="Deskripsi" rows="3" name="deskripsi">{{ old('deskripsi', $presma->deskripsi_kegiatan) }}</textarea>
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label for="tempat" class="col-sm-4 col-form-label">Bukti (Berupa link)</label>
+                                        <label for="tempat" class="col-sm-4 col-form-label">Bukti (Berupa
+                                            link)</label>
                                         <div class="col-sm-8">
-                                            <input type="text" class="form-control" id="tempat" placeholder="link"
-                                                name="link">
+                                            <input type="text" class="form-control @error('link') is-invalid @enderror"
+                                                id="tempat" placeholder="link" name="link"
+                                                value="{{ old('link', $presma->link) }}">
+                                            @error('link')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
                                         </div>
                                     </div>
                                     <div class="form-group row">
@@ -168,7 +254,9 @@
                                             Bukti Mengikuti Lomba:
                                         </label>
                                         <div class="col-sm-6">
-                                            <input type="file" multiple class="dropify form-control" name="foto_bukti[]">
+                                            <input type="file" multiple
+                                                class="dropify form-control @error('foto_bukti[]') is-invalid @enderror"
+                                                name="foto_bukti[]">
                                         </div>
                                     </div>
                                     <div class="pl-8 font-italic">
@@ -203,7 +291,9 @@
                                 <table class="kelompok">
                                     <tr>
                                         <td>
-                                            <input type="number" class="form-control" id="kelompok" name="kelompok[]">
+                                            <input type="number"
+                                                class="form-control @error('kelompok[]') is-invalid @enderror"
+                                                id="kelompok" name="kelompok[]">
                                         </td>
                                         <td>
                                             <button type="button" class="btn btn-info ml-3" id="add_btn">

@@ -37,6 +37,6 @@ class User extends Authenticatable
     }
     public function presma()
     {
-        return $this->belongsToMany(presma::class, 'presma_users', 'users_id', 'presma_id');
+        return $this->belongsToMany(presma::class, 'presma_users', 'users_id', 'presma_id')->latest();
     }
 }

@@ -11,6 +11,8 @@ use Illuminate\Http\Request;
 use App\Http\Requests\PresmaRequest;
 use App\Models\FilePresma;
 use App\Models\Mahasiswa;
+use App\Models\predikat;
+use App\Models\Predikat as ModelsPredikat;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
@@ -24,18 +26,20 @@ class DashboardPresmaController extends Controller
      */
     public function index()
     {
-        $presma = Auth::user()->presma; // collection
+        $presma = Auth::user()->presma;
+        // collection
         // dd($presma[0]->users->toArray());
         // dd(Auth::user()->mahasiswa);
-        return view('dashboard.presma.index', [
+        return view('dashboard.mahasiswa.index', [
             'title' => 'prestasiku',
             'presma' => $presma
         ]);
     }
     public function create()
     {
-        return view('dashboard.pengajuan.create', [
+        return view('dashboard.mahasiswa.create', [
             'title' => "Pengajuan",
+            'predikat' => Predikat::get(),
             'tingkat' => Tingkat::get(),
             'bidang' => Bidang::get()
         ]);
@@ -51,9 +55,9 @@ class DashboardPresmaController extends Controller
         $presma = presma::create([
             'tingkat_id' => $request->tingkat,
             'bidang_id' => $request->bidang,
+            'predikat_id' => $request->predikat,
             'nama_kegiatan' => $request->nama_kegiatan,
-            'predikat' => $request->prestasi,
-            'tanggal' => $request->tgl_kegiatan,
+            'tanggal' => $request->tanggal,
             'pembimbing' => $request->pembimbing,
             'penyelenggara' => $request->penyelenggara,
             'akademik' => $request->akademik == "true" ? true : false,
@@ -67,7 +71,7 @@ class DashboardPresmaController extends Controller
         ]);
         if ($request->has('foto_bukti')) {
             foreach ($request->foto_bukti as $bukti) {
-                $foto = "fotobukti-". Str::random(5) . time() . '.' . $bukti->extension();
+                $foto = "fotobukti-" . Str::random(5) . time() . '.' . $bukti->extension();
                 $send = $bukti->storeAs('public/bukti/foto/', $foto);
                 $path = Storage::url($send);
                 FilePresma::create([
@@ -77,7 +81,7 @@ class DashboardPresmaController extends Controller
             }
         }
         if ($request->has('sertifikat_bukti')) {
-            $foto = "sertifikat-". Str::random(5) . time() . '.' . $request->sertifikat_bukti->extension();
+            $foto = "sertifikat-" . Str::random(5) . time() . '.' . $request->sertifikat_bukti->extension();
             $send = $request->sertifikat_bukti->storeAs('public/bukti/sertifikat/', $foto);
             $path = Storage::url($send);
             FilePresma::create([
@@ -88,7 +92,7 @@ class DashboardPresmaController extends Controller
         foreach ($mahasiswa as $m) {
             DB::insert('INSERT INTO presma_users (presma_id, users_id) values (?, ?)', [$presma->id, $m['id']]);
         }
-        return redirect('/dashboard/presma')->with('success', 'New Presma has been added!');
+        return redirect('/mahasiswa/presma')->with('success', 'New Presma has been added!');
     }
 
     /**
@@ -97,9 +101,12 @@ class DashboardPresmaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(presma $presma)
     {
-        //
+        return view('dashboard.mahasiswa.show', [
+            'title' => 'detail',
+            'presma' => $presma
+        ]);
     }
 
     /**
@@ -108,9 +115,15 @@ class DashboardPresmaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(presma $presma)
     {
-        //
+        return view('dashboard.mahasiswa.edit', [
+            'title' => 'Edit',
+            'presma' => $presma,
+            'predikat' => Predikat::get(),
+            'tingkat' => Tingkat::get(),
+            'bidang' => Bidang::get()
+        ]);
     }
 
     /**

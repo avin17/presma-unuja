@@ -119,7 +119,7 @@ class DashboardPresmaController extends Controller
     {
         return view('dashboard.mahasiswa.edit', [
             'title' => 'Edit',
-            'presma' => $presma,
+            'presma' => $presma->load('users'),
             'predikat' => Predikat::get(),
             'tingkat' => Tingkat::get(),
             'bidang' => Bidang::get()

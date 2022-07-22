@@ -42,7 +42,7 @@
                     </ul>
                 </div>
                 <div class="body wizard_validation" id="formwizard">
-                    <form id="wizard_with_validation" method="post" action="{{ route('presma.store') }}"
+                    <form id="wizard_with_validation" method="post" action="{{ route('mahasiswa.presma.store') }}"
                         enctype="multipart/form-data">
                         @csrf
                         <h3>Kegiatan</h3>
@@ -289,18 +289,6 @@
                             <p>Masukkan NIM Anggota lomba</p>
                             <div class="col-md-6">
                                 <table class="kelompok">
-                                    <tr>
-                                        <td>
-                                            <input type="number"
-                                                class="form-control @error('kelompok[]') is-invalid @enderror"
-                                                id="kelompok" name="kelompok[]">
-                                        </td>
-                                        <td>
-                                            <button type="button" class="btn btn-info ml-3" id="add_btn">
-                                                <i class="fa fa-plus-square"></i>
-                                            </button>
-                                        </td>
-                                    </tr>
                                 </table>
                             </div>
 
@@ -334,6 +322,22 @@
     <script src="{{ asset('assets/vendor/jquery-steps/jquery.steps.js') }}"></script><!-- JQuery Steps Plugin Js -->
     <script src="{{ asset('assets/js/pages/forms/form-wizard.js') }}"></script>
     <script>
+        let user = {!! $presma->users->load('mahasiswa') !!}
+        var html = '';
+        user.forEach((e, k) => {
+            if (k == 0) {
+                html += '<tr>'
+                html += '<td><input type="number" class="form-control mt-1" id="kelompok" name="kelompok[]" value="'+e.mahasiswa.nim+'"></td>';
+                html += '<td><button type="button" class="btn btn-info ml-3" id="add_btn"><i class="fa fa-plus-square"></i></button></td>';
+                html += '</tr>';
+            } else {
+                html += '<tr>'
+                html += '<td><input type="number" class="form-control mt-1" id="kelompok" name="kelompok[]" value="'+e.mahasiswa.nim+'"></td>';
+                html += '<td><button type="button" class="btn btn-danger mt-1 ml-3" id="remove_btn"><i class="fa fa-minus-square"></i></button></td>';
+                html += '</tr>';
+            }
+        });
+        $('.kelompok').html(html)
         $(document).on('click', '#add_btn', function() {
             var html = '';
             html += '<tr>'
